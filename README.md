@@ -26,9 +26,9 @@ Note: My own chat logs will not be uploaded as it contains personal conversation
 ## Methodology
 Chat logs for 530 League of Legends matches were obtained by requesting account data from Riot Games Support. It has since become more difficult to obtain chat data, as logs for only 100 matches can be requested every 30 days. 68 matches did not contain any messages and were excluded. Match results were obtained by querying the Riot Games API. 
 
-For sentiment analysis, the Google Cloud NLP API was called with the overall match sentiment score being saved. Scores are returned on a scale from -1 (strong negative sentiment) to 1 (strong positive sentiment).
+For sentiment analysis, the Google Cloud Sentiment API was called with the overall match sentiment score being saved. Scores are returned on a scale from -1 (strong negative sentiment) to 1 (strong positive sentiment).
 
-For machine learning, the bag of words model was used to represent the text data. This model was used over tf-idf as the latter will place heavy emphasis on champion names, which will occur multiple times in select match (whenever said champions are in the match), but do not have any significance with regards to emotion/sentiment. Word embedding models were not used as the data set is small. Additionally, a seeded 75/25 split was used to validate and compare each model.
+For machine learning, the bag of words model was used to represent the text data. This model was used over tf-idf as the latter will place heavy emphasis on champion names, which will occur multiple times in select matches (whenever said champions are in the match), but do not have any significance with regards to emotion/sentiment. Word embedding models were not used as the data set is small. Additionally, a seeded 75/25 split was used to validate and compare each model.
 
 ## Results/Analysis
 ### Sentiment <br>
@@ -46,7 +46,7 @@ Two major differences can be seen when comparing the win and loss histograms. Fi
 
 The second difference is that matches with strong positive sentiment occur with a much larger frequency in wins than losses. As previously mentioned, many positive sentiment matches occur due to salutations, which occur at the beginning and end of the match. Although this may come as a result of the match result (I might be more likely to say good game at the end of a win), salutations do not have an impact on the match itself. Thus, to identify whether tilt is playing a role in the result, further analysis should be done to look into consecutive match (ex: win rate in the next match if "good game" is said or not).
 
-To quantify the difference in sentiment and answer the first motivation question, the sample means of sentiment score in wins and losses were calculated to be 0.4429 in wins and 0.2984 in losses. An unpaired t-test was performed with a null hypothesis of both samples having identical mean sentiment scores. The test returned a statistic of -3.581 with p-value 0.000385, and thus it is concluded that there is a statistically significant difference in sentiment between wins and losses.
+To quantify the difference in sentiment and answer the first question in the motivation section, the sample means of sentiment score in wins and losses were calculated to be 0.4429 in wins and 0.2984 in losses. An unpaired t-test was performed with a null hypothesis of both samples having identical mean sentiment scores. The test returned a statistic of -3.581 with p-value 0.000385, and thus it is concluded that there is a statistically significant difference in sentiment between wins and losses.
 
 ### Machine Learning
 **Support Vector Machine** <br>
