@@ -31,7 +31,7 @@ For sentiment analysis, the Google Cloud NLP API was called with the overall mat
 For machine learning, the bag of words model was used to represent the text data. This model was used over tf-idf as the latter will place heavy emphasis on champion names, which will occur multiple times in select match (whenever said champions are in the match), but do not have any significance with regards to emotion/sentiment. Word embedding models were not used as the data set is small. Additionally, a seeded 75/25 split was used to validate and compare each model.
 
 ## Results/Analysis
-### Sentiment
+### Sentiment <br>
 To visualize the difference in sentiment between wins and losses, a histogram was created for sentiment scores in each case. Note that the sentiment score is a weighted average across the match, and thus neutral scores near 0 represent both low-emotion and mixed-emotion. 
 
 ![Win Histogram](Images/Wins.png)
@@ -49,7 +49,7 @@ The second difference is that matches with strong positive sentiment occur with 
 To quantify the difference in sentiment and answer the first motivation question, the sample means of sentiment score in wins and losses were calculated to be 0.4429 in wins and 0.2984 in losses. An unpaired t-test was performed with a null hypothesis of both samples having identical mean sentiment scores. The test returned a statistic of -3.581 with p-value 0.000385, and thus it is concluded that there is a statistically significant difference in sentiment between wins and losses.
 
 ### Machine Learning
-**Support Vector Machine**
+**Support Vector Machine** <br>
 A linear kernel was used for the SVM as after processing the input matrix was sparse and had more features than examples. Hyperparameter optimization was performed using grid search on C values from 2<sup>-5</sup> to 2<sup>15</sup> and gamma values from 2<sup>-15</sup> to 2<sup>3</sup>. The best model achieved the following metrics:
 
 | Metric         | Value  |
@@ -65,7 +65,7 @@ One benefit of using a linear kernel is that the coefficients can be used to est
 
 The figure above confirms a suspicion from manual inspection, that I say "good game" significantly more during wins than losses. Another interesting point is that the word "next" is the strongest negative predictor (note: although "go next" is a common phrase used in League of Legends matches when someone wants to give up, the phrase was not used at the time of the matches in this data set). This means that pointing out mistakes provides little to no benefit to team morale even when phrased in a passive manner (ex: "I think you should do x/y/z next time").
 
-**Random Forest**
+**Random Forest** <br>
 Initial training of the random forest classifier resulted in overfitting of the training set. To prevent this, hyperparameter optimization was performed with grid search on 2<sup>6</sup> to 2<sup>10</sup> estimator trees and 2 to 16 samples required to split. The best model achieved the following metrics:
 
 | Metric         | Value  |
@@ -76,7 +76,7 @@ Initial training of the random forest classifier resulted in overfitting of the 
 
 The random forest classifier was still not as effective in generalizing to the test set, likely due to the sparsity and high dimensionality of the input data.
 
-**Neural Network**
+**Neural Network** <br>
 As the data set is small, a large and/or deep neural network will overfit the training data. Thus a shallow neural network with a 50% dropout layer is used. Below is the summary of the neural network used to fit the data:
 
 Model: "sequential"
@@ -101,7 +101,7 @@ The model achieved the following metrics:
 
 This model generalized better than the random forest but worse than the linear SVM. The small sample size most likely played a factor in reducing the predictive power of the neural network.
 
-**Conclusions**
+**Conclusions** <br>
 Overall, the best machine learning model was able to predict the outcome of new matches from chat logs with 63.8 % accuracy. As it is difficult to obtain additional chat data, one path to further analyze this data is to use the match timeline features of the Riot Games API, and see the impact of communications on match result in a more dynamic manner (ex: predicting comebacks victories and "throw" defeats)
 
 Regardless, the predictive power of the models show that my communications (a reflection of my emotional state, attentiveness, and will to work with my team) play a significant role in my chances of winning or losing a match. Moving forward I would recommend all competitors looking to improve their ranking to take into account not only the negative impact of tilt but the positive impact of encouragement and informative communication.
