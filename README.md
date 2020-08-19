@@ -16,12 +16,12 @@ In competition, I am a strong believer that the impact of overall poor mental st
   2. Can the outcome of a match be predicted from the messages sent? <br>
 
 ## Contents
-Note: My own chat logs will not be uploaded as it contains personal conversations at times. However I have provided the data collection files used to allow for reproducibilitiy.<br>
+Note: My own chat logs will not be uploaded as it contains personal conversations at times. However I have provided the data collection files used to allow for reproducibility.<br>
 **DataPreparation.ipynb:** Notebook containing data collection and cleaning procedure. <br>
-**Sentiment.ipynb:** Notebook containing sentiment analysis of chat logs.
-**SVM.ipynb:** Notebook containing SVM model training and evaluation, including feature importance calculations.
-**RandomForest.ipynb:** Notebook containing Random Forest model training and evaluation.
-**NeuralNetwork.ipynb:** Notebook containing Shallow Neural Network model training and evaluation.
+**Sentiment.ipynb:** Notebook containing sentiment analysis of chat logs. <br>
+**SVM.ipynb:** Notebook containing SVM model training and evaluation, including feature importance calculations. <br>
+**RandomForest.ipynb:** Notebook containing Random Forest model training and evaluation. <br>
+**NeuralNetwork.ipynb:** Notebook containing Shallow Neural Network model training and evaluation. <br>
 
 ## Methodology
 Chat logs for 530 League of Legends matches were obtained by requesting account data from Riot Games Support. It has since become more difficult to obtain chat data, as logs for only 100 matches can be requested every 30 days. 68 matches did not contain any messages and were excluded. Match results were obtained by querying the Riot Games API. 
@@ -80,18 +80,16 @@ The random forest classifier was still not as effective in generalizing to the t
 As the data set is small, a large and/or deep neural network will overfit the training data. Thus a shallow neural network with a 50% dropout layer is used. Below is the summary of the neural network used to fit the data:
 
 Model: "sequential"
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-_________________________________________________________________
-dense (Dense)                (None, 16)                14624     
-_________________________________________________________________
-dropout (Dropout)            (None, 16)                0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 1)                 17        
-_________________________________________________________________
-Total params: 14,641
-Trainable params: 14,641
-Non-trainable params: 0
+
+| Layer (type)      | Output Shape | Param # |
+|-------------------|--------------|---------|
+| dense (Dense)     | (None, 16)   | 14624   |
+| dropout (Dropout) | (None, 16)   | 0       |
+| dense_1 (Dense)   | (None, 1)    | 17      |
+
+Total params: 14,641 <br>
+Trainable params: 14,641 <br>
+Non-trainable params: 0 <br>
 
 The model achieved the following metrics:
 
